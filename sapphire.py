@@ -2,6 +2,7 @@ import params
 from word_alignment import FastTextVectorize, WordAlign
 from phrase_alignment import PhraseExtract, PhraseAlign
 
+
 class sapphire(object):
 
     def __init__(self):
