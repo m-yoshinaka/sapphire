@@ -1,5 +1,3 @@
-import sys
-import time
 import itertools
 import threading
 import numpy as np
@@ -11,25 +9,10 @@ import fasttext
 class FastTextVectorize(object):
 
     def __init__(self, model_path):
+        print("Loading model", flush=True, end="")
         self.model_path = model_path
-        self.model = None
-
-        th = threading.Thread(target=self._load_model)
-        th.start()
-
-        print("Loading model: ", end="")
-        while th.isAlive():
-            sys.stdout.write(".")
-            sys.stdout.flush()
-            time.sleep(0.12)
-            sys.stdout.write("\b ")
-            sys.stdout.flush()
-            time.sleep(0.12)
-        sys.stdout.write("\bDONE\n")
-        sys.stdout.flush()
-
-    def _load_model(self):
-        self.model = fasttext.FastText.load_model(self.model_path)
+        self.model = fasttext.FastText.load_model(self.model_path)        
+        print("DONE")
 
     def vectorize(self, words: list) -> np.array:
         vector = []
