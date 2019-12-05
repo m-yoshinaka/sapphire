@@ -1,8 +1,8 @@
-from sapphire import sapphire
+from sapphire import Sapphire
 
 
 def run_sapphire():
-    phrase_aligner = sapphire()
+    phrase_aligner = Sapphire()
 
     sentence_src = ""
     while sentence_src == "":

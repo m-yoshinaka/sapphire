@@ -12,7 +12,7 @@ class FastTextVectorize(object):
         print("Loading model", flush=True, end="")
         self.model_path = model_path
         self.model = fasttext.FastText.load_model(self.model_path)        
-        print("DONE")
+        print("DONE\n")
 
     def vectorize(self, words: list) -> np.array:
         vector = []
