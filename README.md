@@ -11,7 +11,8 @@ This library is designed for a pre-trained model of [fastText](https://fasttext.
 But it is easy to replace the model.
 
 
-## Requirement
+## Requirements
+
 - Python 3.5 or newer
 - NumPy & SciPy
 - fasttext
@@ -20,19 +21,45 @@ But it is easy to replace the model.
 ## Installation (for fastText version)
 
 1. Install requirements  
-After cloning this repository, go to the root directory and `pip install -r requirements.txt` or `pipenv install`.
+After cloning this repository, go to the root directory and install requirements.
+```
+$ pip install -r requirements.txt
+```
 
-2. Download pre-trained model of fastText or prepare your model of fastText.
+2. Install SAPPHIRE  
+Installation with `develop` option allows you to add scripts for other word representations.
+```
+$ python setup.py develop
+```
+
+
+3. Download the pre-trained model of fastText or prepare your model of fastText and move the model to *model* directory.
 ```
 $ curl -O https://dl.fbaipublicfiles.com/fasttext/vectors-english/wiki-news-300d-1M-subword.bin.zip  
 $ unzip wiki-news-300d-1M-subword.bin.zip
+$ mkdir model
+$ mv wiki-news-300d-1M-subword.bin model/
 ```
-
-3. Move the pre-trained model to *model* directory.
 
 
 ## Usage
-```
-from sapphire import Sapphire
-```
 
+### Interactive mode
+```
+$ python run_sapphire.py
+```
+To stop SAPPHIRE, enter `exit` when inputting a sentence.
+
+### Usage of the SAPPHIRE module
+```
+>>> from sapphire import Sapphire
+>>> aligner = Sapphire()
+```
+After preparing a tokenized sentence pair (`tokenized_sentence1: list` and `tokenized_sentence2: list`),
+```
+>>> alignment = aligner.align(tokenized_sentence1, tokenized_sentence2)
+
+>>> print(alignment)
+1,2,3-2,3 8,9-5,6 13-8 27-9
+```
+Output format: 1-indexed alignment
