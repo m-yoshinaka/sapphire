@@ -1,6 +1,6 @@
-import params
-from word_alignment import FastTextVectorize, WordAlign
-from phrase_alignment import PhraseExtract, PhraseAlign
+from . import setting
+from .word_alignment import FastTextVectorize, WordAlign
+from .phrase_alignment import PhraseExtract, PhraseAlign
 
 
 class Sapphire(object):
@@ -8,11 +8,11 @@ class Sapphire(object):
     def __init__(self):
         self.name = ""
 
-        self.model_path = params.FASTTEXT_PATH
-        self.hungarian = params.HUGARIAN
-        self.gamma = params.GAMMA
-        self.delta = params.DELTA
-        self.alpha = params.ALPHA
+        self.model_path = setting.MODEL_PATH
+        self.hungarian = setting.HUGARIAN
+        self.gamma = setting.GAMMA
+        self.delta = setting.DELTA
+        self.alpha = setting.ALPHA
 
         self.vectorizer = FastTextVectorize(self.model_path)
         self.word_aligner = WordAlign()

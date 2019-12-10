@@ -1,4 +1,5 @@
-/__pycache__/
+__pycache__/
+/Pipfile.lock
 /.idea/
 /.vscode/
-/wiki-news-300d-1M-subword.bin
+/model/**

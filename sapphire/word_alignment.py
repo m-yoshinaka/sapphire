@@ -1,17 +1,25 @@
 import itertools
-import threading
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 from scipy.spatial import distance
 import fasttext
 
 
-class FastTextVectorize(object):
+class WordEmbedding(object):
+
+    def __init__(self):
+        pass
+
+    def vectorize(self, word: list) -> np.array:
+        pass
+
+
+class FastTextVectorize(WordEmbedding):
 
     def __init__(self, model_path):
-        print("Loading model", flush=True, end="")
-        self.model_path = model_path
-        self.model = fasttext.FastText.load_model(self.model_path)        
+        super().__init__()
+        print("Loading model: ", flush=True, end="")
+        self.model = fasttext.FastText.load_model(model_path)        
         print("DONE\n")
 
     def vectorize(self, words: list) -> np.array:

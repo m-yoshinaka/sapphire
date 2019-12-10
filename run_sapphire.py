@@ -2,7 +2,7 @@ from sapphire import Sapphire
 
 
 def run_sapphire():
-    phrase_aligner = Sapphire()
+    aligner = Sapphire()
 
     sentence_src = ""
     while sentence_src == "":
@@ -13,10 +13,10 @@ def run_sapphire():
         print("Input sentence2")
         sentence_trg = input(">> ")
 
-    tokens_src = sentence_src.split(" ")
-    tokens_trg = sentence_trg.split(" ")
+    tokens_src = sentence_src.split()
+    tokens_trg = sentence_trg.split()
 
-    alignment = phrase_aligner.align(tokens_src, tokens_trg)
+    alignment = aligner.align(tokens_src, tokens_trg)
     print("{}\n".format(alignment))
 
     if "-" in alignment:
