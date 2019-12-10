@@ -1,5 +1,5 @@
 __pycache__/
-/Pipfile.lock
+/Pipfile**
 /.idea/
 /.vscode/
-/model/**
+/model/
