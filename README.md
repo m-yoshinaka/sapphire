@@ -33,7 +33,7 @@ $ python setup.py develop
 ```
 
 
-3. Download the pre-trained model of fastText or prepare your model of fastText and move the model to *model* directory.
+3. Download the pre-trained model of fastText (or prepare your model of fastText) and move the model to *model* directory.
 ```
 $ curl -O https://dl.fbaipublicfiles.com/fasttext/vectors-english/wiki-news-300d-1M-subword.bin.zip  
 $ unzip wiki-news-300d-1M-subword.bin.zip
