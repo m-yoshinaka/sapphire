@@ -24,8 +24,7 @@ After cloning this repository, go to the root directory and `pip install -r requ
 
 2. Download pre-trained model of fastText or prepare your model of fastText.
 ```
-$ curl -O https://dl.fbaipublicfiles.com/fasttext/vectors-english/wiki-news-300d-1M-subword.bin.zip
-
+$ curl -O https://dl.fbaipublicfiles.com/fasttext/vectors-english/wiki-news-300d-1M-subword.bin.zip  
 $ unzip wiki-news-300d-1M-subword.bin.zip
 ```
 
@@ -34,6 +33,6 @@ $ unzip wiki-news-300d-1M-subword.bin.zip
 
 ## Usage
 ```
-import sa
+from sapphire import Sapphire
 ```
 
