@@ -27,13 +27,13 @@ $ pip install -r requirements.txt
 ```
 
 2. Install SAPPHIRE  
-Installation with `develop` option allows you to add scripts for other word representations.
+Installation with `develop` option allows you to change the parameters and add scripts for other word representations.
 ```
 $ python setup.py develop
 ```
 
 
-3. Download the pre-trained model of fastText (or prepare your model of fastText) and move the model to *model* directory.
+3. Download the pre-trained model of fastText (or prepare your model of fastText) and move it to *model* directory.
 ```
 $ curl -O https://dl.fbaipublicfiles.com/fasttext/vectors-english/wiki-news-300d-1M-subword.bin.zip  
 $ unzip wiki-news-300d-1M-subword.bin.zip
