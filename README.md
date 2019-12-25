@@ -13,7 +13,7 @@ But it is easy to replace the model.
 
 ## Requirements
 
-- Python 3.5 or newer
+- Python 3.6 or newer
 - NumPy & SciPy
 - fasttext
 
@@ -55,7 +55,7 @@ To stop SAPPHIRE, enter `exit` when inputting a sentence.
 >>> from sapphire import Sapphire
 >>> aligner = Sapphire()
 ```
-After preparing a tokenized sentence pair (`tokenized_sentence1: list` and `tokenized_sentence2: list`),
+After preparing a **tokenized** sentence pair (`tokenized_sentence1: list` and `tokenized_sentence2: list`),
 ```
 >>> alignment = aligner.align(tokenized_sentence1, tokenized_sentence2)
 
