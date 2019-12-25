@@ -7,7 +7,7 @@ from scipy.spatial import distance
 class PhraseExtract(object):
 
     def __init__(self):
-        self.name = ""
+        self.name = ''
 
     @staticmethod
     def _no_adpoint(s_start, s_end, t_start, t_end, matrix):
@@ -70,14 +70,14 @@ class PhraseExtract(object):
 class PhraseAlign(object):
 
     def __init__(self):
-        self.name = ""
+        self.name = ''
 
     @staticmethod
     def create_lattice(phrase_pairs: list, len_src: int, len_trg: int) -> list:
         node_list = defaultdict(lambda: defaultdict(list))
 
-        bos_node = {"index": (0, 0, 0, 0), "sim": 0, "next": []}
-        eos_node = {"index": (len_src + 1, len_src + 1, len_trg + 1, len_trg + 1), "sim": 0, "next": []}
+        bos_node = {'index': (0, 0, 0, 0), 'sim': 0, 'next': []}
+        eos_node = {'index': (len_src + 1, len_src + 1, len_trg + 1, len_trg + 1), 'sim': 0, 'next': []}
         node_list[0][0].append(bos_node)
         node_list[len_src + 1][len_trg + 1].append(eos_node)
 
@@ -102,12 +102,12 @@ class PhraseAlign(object):
 
             for next_pair in nearest_pairs:
                 s_start, s_end, t_start, t_end, sim = next_pair
-                next_node = {"index": (s_start, s_end, t_start, t_end), "sim": sim, "next": []}
+                next_node = {'index': (s_start, s_end, t_start, t_end), 'sim': sim, 'next': []}
                 rest_pairs = [p for p in pairs if p[0] > s_end and p[2] > t_end]
 
                 checked = False
                 for checked_node in node_list[s_start][t_start]:
-                    if next_node["index"] == checked_node["index"]:
+                    if next_node['index'] == checked_node['index']:
                         next_node = checked_node
                         checked = True
                         break
@@ -115,13 +115,13 @@ class PhraseAlign(object):
                     node_list[s_start][t_start].append(next_node)
 
                 if next_node != end_node:
-                    similarity.append(next_node["sim"])
+                    similarity.append(next_node['sim'])
 
                 for solution in _forward(s_end + 1, t_end + 1, next_node, end_node, rest_pairs):
-                    ids = start_node["index"]
-                    ids_src = ",".join([str(i) for i in range(ids[0], ids[1] + 1)])
-                    ids_trg = ",".join([str(i) for i in range(ids[2], ids[3] + 1)])
-                    path.append(["{}-{}".format(ids_src, ids_trg)] + solution)
+                    ids = start_node['index']
+                    ids_src = ','.join([str(i) for i in range(ids[0], ids[1] + 1)])
+                    ids_trg = ','.join([str(i) for i in range(ids[2], ids[3] + 1)])
+                    path.append(['{}-{}'.format(ids_src, ids_trg)] + solution)
 
                 if next_node != end_node:
                     similarity.pop()
@@ -129,15 +129,15 @@ class PhraseAlign(object):
             return path
 
         if not phrase_pairs:
-            return [("", "0")]
+            return [('', '0')]
 
         _s_start, _s_end, _t_start, _t_end, _sim = sorted(phrase_pairs, key=lambda x: x[4], reverse=True)[0]
-        top_node = {"index": (_s_start, _s_end, _t_start, _t_end), "sim": _sim, "next": []}
+        top_node = {'index': (_s_start, _s_end, _t_start, _t_end), 'sim': _sim, 'next': []}
         node_list[_s_start][_t_start].append(top_node)
 
-        top_src = ",".join([str(i) for i in range(_s_start, _s_end + 1)])
-        top_trg = ",".join([str(i) for i in range(_t_start, _t_end + 1)])
-        top_index = "{}-{}".format(top_src, top_trg)
+        top_src = ','.join([str(i) for i in range(_s_start, _s_end + 1)])
+        top_trg = ','.join([str(i) for i in range(_t_start, _t_end + 1)])
+        top_index = '{}-{}'.format(top_src, top_trg)
 
         prev_pairs = [p for p in phrase_pairs if p[1] < _s_start and p[3] < _t_start]
         prev_pairs.append((_s_start, _s_end, _t_start, _t_end, _sim))
@@ -146,17 +146,17 @@ class PhraseAlign(object):
         next_pairs.append((len_src + 1, len_src + 1, len_trg + 1, len_trg + 1, 0))
 
         similarity = []
-        prev_align = [(" ".join(sol[1:-1]), sol[-1]) for sol in
+        prev_align = [(' '.join(sol[1:-1]), sol[-1]) for sol in
                         _forward(1, 1, bos_node, top_node, prev_pairs)]
 
         similarity = []
-        next_align = [(" ".join(sol[1:-1]), sol[-1]) for sol in
+        next_align = [(' '.join(sol[1:-1]), sol[-1]) for sol in
                         _forward(_s_end + 1, _t_end + 1, top_node, eos_node, next_pairs)]
 
         alignments = []
         for prev_path, next_path in itertools.product(prev_align, next_align):
-            concat_path = (" ".join((prev_path[0], top_index, next_path[0]))).strip()
-            length = len(concat_path.split(" "))
+            concat_path = (' '.join((prev_path[0], top_index, next_path[0]))).strip()
+            length = len(concat_path.split(' '))
             score = (prev_path[1] + next_path[1] + _sim) / length if length != 0 else 0
             alignments.append((concat_path, str(score)))
 

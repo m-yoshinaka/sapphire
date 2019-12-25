@@ -6,7 +6,7 @@ from .phrase_alignment import PhraseExtract, PhraseAlign
 class Sapphire(object):
 
     def __init__(self):
-        self.name = ""
+        self.name = ''
 
         self.model_path = setting.MODEL_PATH
         self.hungarian = setting.HUGARIAN

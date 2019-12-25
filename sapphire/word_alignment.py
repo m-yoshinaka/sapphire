@@ -18,9 +18,9 @@ class FastTextVectorize(WordEmbedding):
 
     def __init__(self, model_path):
         super().__init__()
-        print("Loading model: ", flush=True, end="")
+        print('Loading model: ', flush=True, end='')
         self.model = fasttext.FastText.load_model(model_path)        
-        print("DONE\n")
+        print('DONE\n')
 
     def vectorize(self, words: list) -> np.array:
         vector = []
@@ -37,7 +37,7 @@ class FastTextVectorize(WordEmbedding):
 class WordAlign(object):
 
     def __init__(self):
-        self.name = ""
+        self.name = ''
 
     @staticmethod
     def similarity_matrix(vectors_src: np.array, vectors_trg: np.array) -> np.ndarray:
