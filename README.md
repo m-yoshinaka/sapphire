@@ -55,10 +55,10 @@ To stop SAPPHIRE, enter `exit` when inputting a sentence.
 >>> from sapphire import Sapphire
 >>> aligner = Sapphire()
 ```
-After preparing a **tokenized** sentence pair (`tokenized_sentence1: list` and `tokenized_sentence2: list`),
+After preparing a **tokenized** sentence pair (`tokenized_sentence_a: list` and `tokenized_sentence_b: list`),
 ```
->>> alignment = aligner.align(tokenized_sentence1, tokenized_sentence2)
-
+>>> result = aligner.align(tokenized_sentence_a, tokenized_sentence_b)
+>>> alignment = result.top_alignment[0][0]
 >>> print(alignment)
 1,2,3-2,3 8,9-5,6 13-8 27-9
 ```
