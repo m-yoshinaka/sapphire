@@ -3,18 +3,25 @@ from .word_alignment import FastTextVectorize, WordAlign
 from .phrase_alignment import PhraseExtract, PhraseAlign
 
 
+class SapphireAlignment(object):
+
+    def __init__(self, word_alignment: list, top_alignment: list):
+        self.name = ''
+        self.word_alignment = word_alignment
+        self.top_alignment = top_alignment
+
+
 class Sapphire(object):
 
-    def __init__(self):
+    def __init__(self, model):
         self.name = ''
 
-        self.model_path = setting.MODEL_PATH
         self.hungarian = setting.HUGARIAN
         self.gamma = setting.GAMMA
         self.delta = setting.DELTA
         self.alpha = setting.ALPHA
 
-        self.vectorizer = FastTextVectorize(self.model_path)
+        self.vectorizer = FastTextVectorize(model)
         self.word_aligner = WordAlign()
         self.extractor = PhraseExtract()
         self.phrase_aligner = PhraseAlign()
@@ -30,6 +37,8 @@ class Sapphire(object):
         word_alignment = self.word_aligner.align(sim_matrix, self.gamma, self.hungarian)
 
         phrase_pairs = self.extractor.extract(word_alignment, vectors_src, vectors_trg, self.delta, self.alpha)
-        alignment_lattice = self.phrase_aligner.create_lattice(phrase_pairs, len_src, len_trg)
+        phrase_alignment = self.phrase_aligner.create_lattice(phrase_pairs, len_src, len_trg)
 
-        return alignment_lattice[0][0]
+        result = SapphireAlignment(word_alignment, phrase_alignment[:10])
+
+        return result

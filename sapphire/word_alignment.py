@@ -2,7 +2,6 @@ import itertools
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 from scipy.spatial import distance
-import fasttext
 
 
 class WordEmbedding(object):
@@ -16,18 +15,16 @@ class WordEmbedding(object):
 
 class FastTextVectorize(WordEmbedding):
 
-    def __init__(self, model_path):
+    def __init__(self, model):
         super().__init__()
-        print('Loading model: ', flush=True, end='')
-        self.model = fasttext.FastText.load_model(model_path)        
-        print('DONE\n')
+        self.model = model
 
     def vectorize(self, words: list) -> np.array:
         vector = []
 
         if words:
             for word in words:
-                vector.append(self.model.get_word_vector(word))
+                vector.append(self.model.get_word_vector(word.lower()))
         else:
             vector.append(np.zeros(300))
 
@@ -115,7 +112,7 @@ class WordAlign(object):
         return alignments
 
     def align(self, sim_matrix: np.ndarray, gamma, hungarian) -> list:
-        # 1-index alignment
+        ### 1-index alignment ###
         if hungarian:
             alignments = self._hungarian_assign(sim_matrix)
         else:
