@@ -1,0 +1,77 @@
+h1 {
+  color: #0f52ba;
+}
+#description {
+  margin-bottom: 35px;
+  border-bottom: 2px solid #ccc;
+}
+#result {
+  margin-top: 35px;
+}
+hr {
+  border-width: 1px 0px 0px 0px;
+  border-style: dashed;
+  border-color: #0f52ba;
+}
+.cp_tooltip {
+	display: inline-block;
+}
+.cp_tooltiptext {
+	position: relative;
+	cursor: pointer;
+}
+.cp_tooltiptext::after {
+	position: absolute;
+	transition: all 0.3s ease 0s;
+	opacity: 0;
+	top: 0px;
+	left: 0px;
+	display: block;
+	padding: 0.2em 0.5em;
+	content: attr(data-tooltip);
+	white-space: nowrap;
+	color: #ffffff;
+	border-radius: 6px;
+	background: #1b2538;
+}
+.cp_tooltiptext:hover::after {
+	top: 26px;
+	opacity: 1;
+}
+
+#phrase1 {
+  color: red;
+}
+#phrase2 {
+  color: blue;
+}
+#phrase3 {
+  color: green;
+}
+#phrase4 {
+  color: yellow;
+}
+#phrase5 {
+  color: purple;
+}
+#phrase6 {
+  color: orange;
+}
+#phrase7 {
+  color: yellowgreen;
+}
+#phrase8 {
+  color: pink;
+}
+#phrase8 {
+  color: brown;
+}
+#phrase9 {
+  color: skyblue;
+}
+#phrase10 {
+  color: gray;
+}
+#phrase11 {
+  color: goldenrod;
+}
