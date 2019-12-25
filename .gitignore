@@ -2,4 +2,4 @@ __pycache__/
 /Pipfile**
 /.idea/
 /.vscode/
-/model/
+*.bin
