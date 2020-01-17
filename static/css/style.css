@@ -39,6 +39,18 @@ hr {
 	opacity: 1;
 }
 
+.parent {  
+  margin-bottom: 35px;
+}
+
+.child {
+  display: inline;
+}
+
+#caption {
+  font-weight: bold;
+}
+
 #phrase1 {
   color: red;
 }
