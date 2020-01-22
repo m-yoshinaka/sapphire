@@ -35,7 +35,8 @@ def run_sapphire():
         if not alignment:
             continue
 
-        print('---\n * Result')
+        print('-'.join(['-' for i in range(0, 20)]))
+        print('\n * Result')
         print('{0:^20}{1:<6}{2:^20}'.format('A', '', 'B'))
 
         for al in alignment:
@@ -43,7 +44,7 @@ def run_sapphire():
             text_trg = ' '.join(tokens_trg[al[2] - 1 : al[3]])
             print('{0:<20}{1:<6}{2:<20}'.format(text_src, '<-->', text_trg))
         
-        print('---')
+        print('-'.join(['-' for i in range(0, 20)]))
 
 
 if __name__ == '__main__':

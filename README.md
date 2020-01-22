@@ -5,7 +5,7 @@
 
 ## Description
 
-SAPPHIRE depends only on a pre-trained word embeddings. 
+SAPPHIRE depends only on a pre-trained word embedding. 
 Therefore, it is easily transferable to specific domains and different languages.  
 This library is designed for a pre-trained model of [fastText](https://fasttext.cc/).
 But it is easy to replace the model.
