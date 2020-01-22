@@ -10,12 +10,16 @@ ALIGNER_PATH = 'model/sapphire.pkl'
 sapphire = None
 
 
-def prepare():
+def prepare(_lambda, _delta, _alpha):
     print(' * Loading pre-trained model ...', flush=True, end='')
     model = fasttext.FastText.load_model(FASTTEXT_PATH)
     print(' *  - completed')
     global sapphire
     sapphire = Sapphire(model)
+    lm = float(_lambda) if _lambda != '' else 0.7
+    dl = float(_lambda) if _delta != '' else 0.9
+    al = float(_lambda) if _alpha != '' else 0.05
+    sapphire.set_params(lm, dl, al)
 
 
 def alignment2html(tokens_a, tokens_b, word_alignment, phrase_alignment):
@@ -71,6 +75,15 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/input', methods=['POST'])
+def input_sent():
+    _lambda = request.form['lambda']
+    _delta = request.form['delta']
+    _alpha = request.form['alpha']
+    prepare(_lambda, _delta, _alpha)
+    return render_template('input.html')
+
+
 @app.route('/align', methods=['GET', 'POST'])
 def align():
     sent_a = request.form['sent_a']
@@ -88,5 +101,4 @@ def align():
 
 if __name__ == '__main__':
     app.debug = True
-    prepare()
     app.run()
