@@ -5,7 +5,7 @@ FASTTEXT_PATH = 'model/wiki-news-300d-1M-subword.bin'
 
 HUGARIAN = False  # word alignment option (default: grow-diag-final)
 
-GAMMA = 0.7  # threshold of word alignment candidate score
+LAMBDA = 0.7  # threshold of word alignment candidate score
 DELTA = 0.9  # threshold of phrase alignment candidate score
 ALPHA = 0.05  # bias for length of phrase
 
