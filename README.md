@@ -60,6 +60,6 @@ After preparing a **tokenized** sentence pair (`tokenized_sentence_a: list` and 
 >>> result = aligner.align(tokenized_sentence_a, tokenized_sentence_b)
 >>> alignment = result.top_alignment[0][0]
 >>> print(alignment)
-1,2,3-2,3 8,9-5,6 13-8 27-9
+[(1, 3, 2, 3), (8, 9, 5, 6), (13, 13, 8, 8), (27, 27, 9, 9)]
 ```
-Output format: 1-indexed alignment
+phrase pair (x, y): (x_start, x_end, y_start, y_end)  # 1-indexed alignment
