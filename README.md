@@ -2,6 +2,18 @@
 
 **SAPPHIRE** is a simple monolingual phrase aligner based on word embeddings.
 
+We explain the details of SAPPHIRE in the following paper.
+```
+@inproceedings{yoshinaka-2020,
+    author      = {Yoshinaka, Masato and Kajiwara, Tomoyuki and Arase, Yuki},
+    title       = {SAPPHIRE: Simple Aligner for Phrasal Paraphrase with Hierarchical Representaion},
+    booktitle   = {Proceedings of the 12th International Conference on Language Resources and Evaluation (LREC 2020)},
+    year        = {2020},
+    pages       = {(to appear)},
+    url         = {(to appear)}
+}
+```
+
 
 ## Description
 
@@ -62,4 +74,5 @@ After preparing a **tokenized** sentence pair (`tokenized_sentence_a: list` and 
 >>> print(alignment)
 [(1, 3, 2, 3), (8, 9, 5, 6), (13, 13, 8, 8), (27, 27, 9, 9)]
 ```
-phrase pair (x, y): (x_start, x_end, y_start, y_end)  # 1-indexed alignment
+phrase pair ($x, y$) : ($x_\text{start}, x_\text{end}, y_\text{start}, y_\text{end}$)  
+\# 1-indexed alignment
