@@ -58,9 +58,9 @@ $ mv wiki-news-300d-1M-subword.bin model/
 
 ### Interactive mode
 ```
-$ python run_sapphire.py
+$ python run_sapphire.py model/wiki-news-300d-1M-subword.bin
 ```
-To stop SAPPHIRE, enter `exit` when inputting a sentence.
+To stop SAPPHIRE, enter `EXIT` when inputting a sentence.
 
 ### Usage of the SAPPHIRE module
 ```

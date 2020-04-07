@@ -1,11 +1,13 @@
+import sys
 import fasttext
 
 from sapphire import Sapphire, setting
 
 
 def run_sapphire():
+    fasttext_path = sys.argv[1]
     print(' * Loading pre-trained model ...', flush=True, end='')
-    model = fasttext.FastText.load_model(setting.FASTTEXT_PATH)
+    model = fasttext.FastText.load_model(fasttext_path)
     print(' *  - completed')
     
     aligner = Sapphire(model)
@@ -16,7 +18,7 @@ def run_sapphire():
         while sentence_src == '':
             print('Input tokenized sentence (A)')
             sentence_src = input('> ')
-        if sentence_src == 'exit':
+        if sentence_src == 'EXIT':
             break
 
         sentence_trg = ''
