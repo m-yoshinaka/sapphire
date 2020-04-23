@@ -26,10 +26,11 @@ class Sapphire(object):
         self.extractor = PhraseExtract()
         self.phrase_aligner = PhraseAlign()
 
-    def set_params(self, LAMBDA, DELTA, ALPHA):
+    def set_params(self, LAMBDA, DELTA, ALPHA, HUGARIAN=False):
         self._lambda = LAMBDA
         self._delta = DELTA
         self._alpha = ALPHA
+        self._hungarian = HUGARIAN
 
     def align(self, tokens_src: list, tokens_trg: list):
         len_src = len(tokens_src)
