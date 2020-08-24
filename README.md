@@ -25,7 +25,7 @@ But it is easy to replace the model.
 
 ## Requirements
 
-- Python 3.6 or newer
+- Python 3.7 or newer
 - NumPy & SciPy
 - fasttext
 
