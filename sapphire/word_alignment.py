@@ -24,8 +24,8 @@ class FastTextVectorize(WordEmbedding):
 
         if words:
             for word in words:
-                # vector.append(self.model.get_word_vector(word.lower()))
-                vector.append(self.model.get_word_vector(word))
+                vector.append(self.model.get_word_vector(word.lower()))
+                # vector.append(self.model.get_word_vector(word))
         else:
             vector.append(np.zeros(300))
 
