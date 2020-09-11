@@ -74,5 +74,6 @@ After preparing a **tokenized** sentence pair (`tokenized_sentence_a: list` and 
 >>> print(alignment)
 [(1, 3, 2, 3), (8, 9, 5, 6), (13, 13, 8, 8), (27, 27, 9, 9)]
 ```
-phrase pair ($x, y$) : ($x_\text{start}, x_\text{end}, y_\text{start}, y_\text{end}$)
-\# 1-indexed alignment
+phrase pair <img src="https://render.githubusercontent.com/render/math?math={(x, y)}"> : 
+<img src="https://render.githubusercontent.com/render/math?math={(x_\text{start}, x_\text{end}, y_\text{start}, y_\text{end})}">
+  \# 1-indexed alignment
