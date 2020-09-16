@@ -158,4 +158,4 @@ class PhraseAlign(object):
 
         alignments.sort(key=lambda x: float(x[1]), reverse=True)
 
-        return alignments
+        return alignments[0][0]

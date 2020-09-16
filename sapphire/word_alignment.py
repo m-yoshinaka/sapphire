@@ -18,6 +18,7 @@ class FastTextVectorize(WordEmbedding):
     def __init__(self, model):
         super().__init__()
         self.model = model
+        self.dim = model.get_dimension()
 
     def vectorize(self, words: list) -> np.array:
         vector = []
@@ -25,9 +26,8 @@ class FastTextVectorize(WordEmbedding):
         if words:
             for word in words:
                 vector.append(self.model.get_word_vector(word.lower()))
-                # vector.append(self.model.get_word_vector(word))
         else:
-            vector.append(np.zeros(300))
+            vector.append(np.zeros(self.dim))
 
         return np.array(vector)
 
@@ -99,7 +99,8 @@ class WordAlign(object):
 
         align_matrix = np.logical_and(src2trg, trg2src)
         union_matrix = np.logical_or(src2trg, trg2src)
-        neighbors = [(-1, 0), (0, -1), (1, 0), (0, 1), (-1, -1), (-1, 1), (1, -1), (1, 1)]
+        neighbors = [(-1, 0), (0, -1), (1, 0), (0, 1),
+                     (-1, -1), (-1, 1), (1, -1), (1, 1)]
 
         _grow_diag()
         _final(src2trg)
