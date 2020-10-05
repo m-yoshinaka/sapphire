@@ -52,13 +52,7 @@ class WordAlign(object):
         self.use_hungarian = use_hungarian
 
     def __call__(self, sim_matrix):
-        if self.use_hungarian:
-            alignments = self._hungarian_assign(sim_matrix)
-        else:
-            alignments = self._grow_diag_final(sim_matrix)
-
-        return [(s + 1, t + 1) for s, t in alignments
-                if sim_matrix[s][t] >= self.lambda_]
+        return self.align(sim_matrix=sim_matrix)
 
     @staticmethod
     def _hungarian_assign(sim_matrix):
@@ -120,3 +114,12 @@ class WordAlign(object):
                 alignments.append((s, t))
 
         return alignments
+
+    def align(self, sim_matrix):
+        if self.use_hungarian:
+            alignments = self._hungarian_assign(sim_matrix)
+        else:
+            alignments = self._grow_diag_final(sim_matrix)
+
+        return [(s + 1, t + 1) for s, t in alignments
+                if sim_matrix[s][t] >= self.lambda_]  # 1-index alignment
