@@ -10,7 +10,7 @@ class Sapphire(object):
         self.vectorizer = FastTextVectorize(model)
         self.set_params()
         self.word_aligner = WordAlign(self.lambda_, self.use_hungarian)
-        self.extractor = PhraseExtract()
+        self.extractor = PhraseExtract(self.delta, self.alpha)
         self.phrase_aligner = PhraseAlign()
 
     def set_params(self, lambda_=0.6, delta=0.6, alpha=0.01, hungarian=False):
@@ -29,12 +29,7 @@ class Sapphire(object):
         sim_matrix = get_similarity_matrix(vectors_src, vectors_trg)
         word_alignment = self.word_aligner(sim_matrix)
 
-        phrase_pairs = self.extractor.extract(word_alignment,
-                                              vectors_src,
-                                              vectors_trg,
-                                              self.delta,
-                                              self.alpha)
-        phrase_alignment = self.phrase_aligner.create_lattice(phrase_pairs,
-                                                              len_src,
-                                                              len_trg)
+        phrase_pairs = self.extractor(word_alignment, vectors_src, vectors_trg)
+        phrase_alignment = self.phrase_aligner(phrase_pairs, len_src, len_trg)
+
         return word_alignment, phrase_alignment
