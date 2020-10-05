@@ -87,7 +87,7 @@ If you change the hyper-parameters,
 After preparing a **tokenized** sentence pair
 (`tokenized_sentence_a: list` and `tokenized_sentence_b: list`),
 ```
->>> _, alignment = aligner.align(tokenized_sentence_a, tokenized_sentence_b)
+>>> _, alignment = aligner(tokenized_sentence_a, tokenized_sentence_b)
 >>> alignment
 [(1, 3, 2, 3), (8, 9, 5, 6), (13, 13, 8, 8), (27, 27, 9, 9)]
 ```

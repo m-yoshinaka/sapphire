@@ -32,7 +32,7 @@ def run_sapphire(args):
 
             tokens_src = sentence_src.split()
             tokens_trg = sentence_trg.split()
-            _, alignment = aligner.align(tokens_src, tokens_trg)
+            _, alignment = aligner(tokens_src, tokens_trg)
 
             print('{:-^48}'.format(' Result '))
             print('{0:^24}{1:^24}'.format('Sentence A', 'Sentence B'))
