@@ -31,7 +31,10 @@ class Sapphire(object):
 
     def __init__(self, model):
         self.vectorizer = FastTextVectorize(model)
-        self.set_params()
+        self.lambda_ = 0.6
+        self.delta = 0.6
+        self.alpha = 0.01
+        self.use_hungarian = False
         self.word_aligner = WordAlign(self.lambda_, self.use_hungarian)
         self.extractor = PhraseExtract(self.delta, self.alpha)
         self.phrase_aligner = PhraseAlign()
@@ -60,6 +63,8 @@ class Sapphire(object):
         self.delta = delta
         self.alpha = alpha
         self.use_hungarian = hungarian
+        self.word_aligner.set_params(self.lambda_, self.use_hungarian)
+        self.extractor.set_params(self.delta, self.alpha)
 
     def align(self, tokens_src: list, tokens_trg: list):
         len_src = len(tokens_src)

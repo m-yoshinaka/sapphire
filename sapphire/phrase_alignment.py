@@ -13,6 +13,10 @@ class PhraseExtract(object):
     def __call__(self, word_alignments, vectors_src, vectors_trg):
         return self.extract(word_alignments, vectors_src, vectors_trg)
 
+    def set_params(self, delta, alpha):
+        self.delta = delta
+        self.alpha = alpha
+
     @staticmethod
     def _no_additional_point(ss, se, ts, te, matrix):
         """

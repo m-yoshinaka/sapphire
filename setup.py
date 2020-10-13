@@ -11,7 +11,7 @@ def read_requirements():
 
 setup(
     name='sapphire',
-    version='0.2.0',
+    version='0.2.1',
     description='Simple Aligner for Phrasal Paraphrase \
                  with Hierarchical Representation',
     author='Masato Yoshinaka',

@@ -54,6 +54,10 @@ class WordAlign(object):
     def __call__(self, sim_matrix):
         return self.align(sim_matrix=sim_matrix)
 
+    def set_params(self, lambda_, use_hungarian):
+        self.lambda_ = lambda_
+        self.use_hungarian = use_hungarian
+
     @staticmethod
     def _hungarian_assign(sim_matrix):
         cost_matrix = - sim_matrix
