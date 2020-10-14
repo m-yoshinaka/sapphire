@@ -21,10 +21,17 @@ class PhraseExtract(object):
     def _no_additional_point(ss, se, ts, te, matrix):
         """
         Check if there are any more adjacent points to be added.
-        ss: the index of the start of source phrase
-        se: the index of the end of source phrase
-        ts: the index of the start of target phrase
-        te: the index of the end of target phrase
+
+        Parameters
+        ----------
+        ss : int
+            the index of the start of source phrase
+        se : int
+            the index of the end of source phrase
+        ts : int
+            the index of the start of target phrase
+        te : int
+            the index of the end of target phrase
         """
         len_src, len_trg = matrix.shape
 
@@ -123,8 +130,8 @@ class PhraseAlign(object):
         len_src, len_trg : int
             Length of sentence.
 
-        Return
-        ------
+        Returns
+        -------
         list
             List of tuples consisting of indexes of phrase pairs
             = one of the phrase alignments

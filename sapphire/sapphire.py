@@ -1,7 +1,7 @@
-from sapphire.word_alignment import (
+from .word_alignment import (
     FastTextVectorize, WordAlign, get_similarity_matrix
 )
-from sapphire.phrase_alignment import PhraseExtract, PhraseAlign
+from .phrase_alignment import PhraseExtract, PhraseAlign
 
 
 class Sapphire(object):
@@ -26,7 +26,6 @@ class Sapphire(object):
         Set hyper-parameters of SAPPHIRE.
     align(tokens_src, tokens_trg)
         Get word alignment and phrase alignment.
-
     """
 
     def __init__(self, model):
@@ -45,6 +44,7 @@ class Sapphire(object):
     def set_params(self, lambda_=0.6, delta=0.6, alpha=0.01, hungarian=False):
         """
         Set hyper-parameters of SAPPHIRE.
+
         Details are discussed in the following paper:
         https://www.aclweb.org/anthology/2020.lrec-1.847/ .
 
@@ -67,6 +67,19 @@ class Sapphire(object):
         self.extractor.set_params(self.delta, self.alpha)
 
     def align(self, tokens_src: list, tokens_trg: list):
+        """
+        Align phrase pairs in two sentences.
+
+        Parameters
+        ----------
+        tokens_src, tokens_trg : list
+            A tokenized sentence represented by a list of words.
+
+        Returns
+        -------
+        tuple
+            (word_alignment, phrase_alignment)
+        """
         len_src = len(tokens_src)
         len_trg = len(tokens_trg)
 
