@@ -116,7 +116,8 @@ class PhraseAlign(object):
 
     def __call__(self, phrase_pairs, len_src, len_trg,
                  prune_k=-1, get_score=False):
-        return self.search_for_lattice(phrase_pairs, len_src, len_trg)
+        return self.search_for_lattice(phrase_pairs, len_src, len_trg,
+                                       prune_k=prune_k, get_score=get_score)
 
     @staticmethod
     def search_for_lattice(phrase_pairs, len_src: int, len_trg: int,
@@ -204,7 +205,7 @@ class PhraseAlign(object):
             return path
 
         if not phrase_pairs:
-            return [([], 0)]
+            return ([], 0) if get_score else []
 
         s_start, s_end, t_start, t_end, score = sorted(
             phrase_pairs, key=lambda x: x[4], reverse=True)[0]
@@ -240,7 +241,7 @@ class PhraseAlign(object):
             length = len(concat_path)
             score = (prev_path[1] + next_path[1] + score) / length \
                 if length != 0 else 0
-            alignments.append((concat_path, str(score)))
+            alignments.append((concat_path, score))
 
         alignments.sort(key=lambda x: float(x[1]), reverse=True)
 
