@@ -114,11 +114,13 @@ class PhraseAlign(object):
     def __init__(self):
         self.name = ''
 
-    def __call__(self, phrase_pairs, len_src, len_trg):
+    def __call__(self, phrase_pairs, len_src, len_trg,
+                 prune_k=-1, get_score=False):
         return self.search_for_lattice(phrase_pairs, len_src, len_trg)
 
     @staticmethod
-    def search_for_lattice(phrase_pairs, len_src: int, len_trg: int):
+    def search_for_lattice(phrase_pairs, len_src: int, len_trg: int,
+                           prune_k=-1, get_score=False):
         """
         Construct a lattice of phrase pairs and depth-first search for the
         path with the highest total alignment score.
@@ -168,6 +170,9 @@ class PhraseAlign(object):
                         break
                 if not nearer:
                     nearest_pairs.append(pair)
+
+            if prune_k != -1:
+                nearest_pairs = nearest_pairs[:prune_k]
 
             for next_pair in nearest_pairs:
                 ss, se, ts, te, __score = next_pair
@@ -238,5 +243,8 @@ class PhraseAlign(object):
             alignments.append((concat_path, str(score)))
 
         alignments.sort(key=lambda x: float(x[1]), reverse=True)
+
+        if get_score:
+            return alignments[0]
 
         return alignments[0][0]  # Return only the top one of phrase alignments

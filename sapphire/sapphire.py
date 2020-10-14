@@ -34,6 +34,8 @@ class Sapphire(object):
         self.delta = 0.6
         self.alpha = 0.01
         self.use_hungarian = False
+        self.prune_k = -1
+        self.get_score = False
         self.word_aligner = WordAlign(self.lambda_, self.use_hungarian)
         self.extractor = PhraseExtract(self.delta, self.alpha)
         self.phrase_aligner = PhraseAlign()
@@ -41,7 +43,8 @@ class Sapphire(object):
     def __call__(self, tokens_src, tokens_trg):
         return self.align(tokens_src, tokens_trg)
 
-    def set_params(self, lambda_=0.6, delta=0.6, alpha=0.01, hungarian=False):
+    def set_params(self, lambda_=0.6, delta=0.6, alpha=0.01, hungarian=False,
+                   prune_k=-1, get_score=False):
         """
         Set hyper-parameters of SAPPHIRE.
 
@@ -63,6 +66,8 @@ class Sapphire(object):
         self.delta = delta
         self.alpha = alpha
         self.use_hungarian = hungarian
+        self.prune_k = prune_k
+        self.get_score = get_score
         self.word_aligner.set_params(self.lambda_, self.use_hungarian)
         self.extractor.set_params(self.delta, self.alpha)
 
@@ -90,6 +95,8 @@ class Sapphire(object):
         word_alignment = self.word_aligner(sim_matrix)
 
         phrase_pairs = self.extractor(word_alignment, vectors_src, vectors_trg)
-        phrase_alignment = self.phrase_aligner(phrase_pairs, len_src, len_trg)
+        phrase_alignment = self.phrase_aligner(phrase_pairs, len_src, len_trg,
+                                               prune_k=self.prune_k,
+                                               get_score=self.get_score)
 
         return word_alignment, phrase_alignment
