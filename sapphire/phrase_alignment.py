@@ -111,17 +111,20 @@ class PhraseExtract(object):
 
 class PhraseAlign(object):
 
-    def __init__(self):
-        self.name = ''
+    def __init__(self, prune_k=-1, get_score=False, epsilon=None):
+        self.prune_k = prune_k
+        self.get_score = get_score
+        self.epsilon = epsilon
 
-    def __call__(self, phrase_pairs, len_src, len_trg,
-                 prune_k=-1, get_score=False):
-        return self.search_for_lattice(phrase_pairs, len_src, len_trg,
-                                       prune_k=prune_k, get_score=get_score)
+    def __call__(self, phrase_pairs, len_src, len_trg):
+        return self.search_for_lattice(phrase_pairs, len_src, len_trg)
 
-    @staticmethod
-    def search_for_lattice(phrase_pairs, len_src: int, len_trg: int,
-                           prune_k=-1, get_score=False):
+    def set_params(self, prune_k, get_score, epsilon):
+        self.prune_k = prune_k
+        self.get_score = get_score
+        self.epsilon = epsilon
+
+    def search_for_lattice(self, phrase_pairs, len_src: int, len_trg: int):
         """
         Construct a lattice of phrase pairs and depth-first search for the
         path with the highest total alignment score.
@@ -172,8 +175,8 @@ class PhraseAlign(object):
                 if not nearer:
                     nearest_pairs.append(pair)
 
-            if prune_k != -1:
-                nearest_pairs = nearest_pairs[:prune_k]
+            if self.prune_k != -1:
+                nearest_pairs = nearest_pairs[:self.prune_k]
 
             for next_pair in nearest_pairs:
                 ss, se, ts, te, __score = next_pair
@@ -205,7 +208,7 @@ class PhraseAlign(object):
             return path
 
         if not phrase_pairs:
-            return ([], 0) if get_score else []
+            return ([], 0) if self.get_score else []
 
         s_start, s_end, t_start, t_end, score = sorted(
             phrase_pairs, key=lambda x: x[4], reverse=True)[0]
@@ -243,9 +246,24 @@ class PhraseAlign(object):
                 if length != 0 else 0
             alignments.append((concat_path, score))
 
+        if self.epsilon is not None:
+            new_alignments = []
+            for alignment, score in alignments:
+                nof_align = len(alignment)
+                nof_null_align = len_src + len_trg
+                for ss, se, ts, te in alignment:
+                    nof_null_align -= se - ss + 1
+                    nof_null_align -= te - ts + 1
+
+                score = (score * nof_align + self.epsilon * nof_null_align) \
+                    / (nof_align + nof_null_align)
+                new_alignments.append((alignment, score))
+
+            alignments = new_alignments
+
         alignments.sort(key=lambda x: float(x[1]), reverse=True)
 
-        if get_score:
+        if self.get_score:
             return alignments[0]
 
         return alignments[0][0]  # Return only the top one of phrase alignments

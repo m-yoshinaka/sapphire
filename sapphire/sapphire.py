@@ -36,15 +36,18 @@ class Sapphire(object):
         self.use_hungarian = False
         self.prune_k = -1
         self.get_score = False
+        self.epsilon = None
         self.word_aligner = WordAlign(self.lambda_, self.use_hungarian)
         self.extractor = PhraseExtract(self.delta, self.alpha)
-        self.phrase_aligner = PhraseAlign()
+        self.phrase_aligner = PhraseAlign(self.prune_k,
+                                          self.get_score,
+                                          self.epsilon)
 
     def __call__(self, tokens_src, tokens_trg):
         return self.align(tokens_src, tokens_trg)
 
     def set_params(self, lambda_=0.6, delta=0.6, alpha=0.01, hungarian=False,
-                   prune_k=-1, get_score=False):
+                   prune_k=-1, get_score=False, epsilon=None):
         """
         Set hyper-parameters of SAPPHIRE.
 
@@ -61,6 +64,13 @@ class Sapphire(object):
             Biases the phrase alignment score based on the lengths of phrases.
         hungarian : bool
             Whether to use the extended Hangarian method to get word alignment.
+        prune_k : int
+            Prunes the number of nodes following a nodes in the lattice.
+        get_score : bool
+            Whether to output alignment scores with phrase alignments.
+        epsilon : float
+            Alignment score for a null alignment.
+            If epsilon is None, SAPPHIRE does not consider null alignment.
         """
         self.lambda_ = lambda_
         self.delta = delta
@@ -68,8 +78,12 @@ class Sapphire(object):
         self.use_hungarian = hungarian
         self.prune_k = prune_k
         self.get_score = get_score
+        self.epsilon = epsilon
         self.word_aligner.set_params(self.lambda_, self.use_hungarian)
         self.extractor.set_params(self.delta, self.alpha)
+        self.phrase_aligner.set_params(self.prune_k,
+                                       self.get_score,
+                                       self.epsilon)
 
     def align(self, tokens_src: list, tokens_trg: list):
         """
@@ -95,8 +109,6 @@ class Sapphire(object):
         word_alignment = self.word_aligner(sim_matrix)
 
         phrase_pairs = self.extractor(word_alignment, vectors_src, vectors_trg)
-        phrase_alignment = self.phrase_aligner(phrase_pairs, len_src, len_trg,
-                                               prune_k=self.prune_k,
-                                               get_score=self.get_score)
+        phrase_alignment = self.phrase_aligner(phrase_pairs, len_src, len_trg)
 
         return word_alignment, phrase_alignment
