@@ -26,7 +26,7 @@ This tool is designed for a pre-trained model of [fastText](https://fasttext.cc/
 
 ## Requirements
 
-- Python 3.7 or newer
+- Python 3.6 or newer
 - NumPy & SciPy
 - fasttext
 
